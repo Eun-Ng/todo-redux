@@ -1,13 +1,8 @@
 import './App.css';
-import React, {useState} from 'react';
-import {TodoList} from './pages/TodoList';
+import Router from './router/Router';
 
-function App() {
-  return (
-    <div className='App'>
-      <TodoList />
-    </div>
-  );
-}
+const App = () => {
+  return <Router />;
+};
 
 export default App;

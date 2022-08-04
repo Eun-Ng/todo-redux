@@ -9,7 +9,7 @@ const Header = () => {
   );
 };
 
-export {Header};
+export default Header;
 
 const NavBar = styled.div`
   background: white;

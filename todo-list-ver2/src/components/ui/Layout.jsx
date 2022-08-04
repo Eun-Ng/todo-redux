@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 const Layout = ({children}) => {
-  return <styledLayout>{children}</styledLayout>;
+  return <StyledLayout>{children}</StyledLayout>;
 };
 
-export {Layout};
+export default Layout;
 
-const styledLayout = styled.div`
+const StyledLayout = styled.div`
   max-width: 1200px;
   min-width: 800px;
   margin: 0 auto;

@@ -1,50 +1,59 @@
 import {useState} from 'react';
 import styled from 'styled-components';
+import {useDispatch} from 'react-redux';
+import uuid from 'react-uuid';
+import {addTodo} from '../../redux/modules/todos';
 
-const Form = ({todos, setTodos}) => {
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+const Form = () => {
+  const id = 'id' + uuid().slice(0, 3);
+
+  const dispatch = useDispatch();
+  const [todo, setTodo] = useState({
+    id: '0',
+    title: '',
+    text: '',
+    isDone: false,
+  });
+
+  const onChangeHandler = (e) => {
+    const {name, value} = e.target;
+    setTodo({...todo, [name]: value});
+  };
 
   const onSubmitHandler = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
-    if (title === '' || text === '') {
-      alert('empty!');
+    if (todo.title === '' || todo.text === '') {
+      return alert('empty!');
     } else {
-      const todo = {
-        id: todos.length + 1,
-        title: title,
-        text: text,
+      dispatch(addTodo({...todo, id}));
+      setTodo({
+        id: '0',
+        title: '',
+        text: '',
         isDone: false,
-      };
-      setTodos([...todos, todo]);
-      console.log(todos);
-      // input 창 초기화
-      setTitle('');
-      setText('');
+      });
     }
+
+    console.log(todo);
   };
 
   return (
-    <AddForm form>
+    <AddForm>
       <InputGroup>
         <p className='title'>제목</p>
         <input
           type='text'
           name='title'
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
+          value={todo.title}
+          onChange={onChangeHandler}
         />
         <p className='content'>내용</p>
         <input
           type='text'
           name='text'
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
+          value={todo.text}
+          onChange={onChangeHandler}
         />
       </InputGroup>
       <AddButton onClick={onSubmitHandler}>추가하기</AddButton>
@@ -52,7 +61,7 @@ const Form = ({todos, setTodos}) => {
   );
 };
 
-export {Form};
+export default Form;
 
 // styled-components
 const AddForm = styled.div`
